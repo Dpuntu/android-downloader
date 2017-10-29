@@ -1,5 +1,5 @@
-### android-downloader
-###### **一个简单的支持多任务下载、多界面管理、可断点下载的网络下载器**
+# android-downloader
+## **一个简单的支持多任务下载、多界面管理、可断点下载的网络下载器**
 
 **1.下载器简介**
 
@@ -88,3 +88,10 @@
 任务下载出现错误时候调用</br>
         参数含义同onLoading</br>
         参数 error 是错误的提示信息
+        
+## 最后非常重要的
+不要忘记加网络以及读写权限
+
+[简书地址](http://www.jianshu.com/p/14a1949de195)
+
+[实例](https://github.com/Dpuntu/DownloadExample)
