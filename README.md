@@ -88,7 +88,27 @@
 任务下载出现错误时候调用</br>
         参数含义同onLoading</br>
         参数 error 是错误的提示信息
-        
+
+**5.DownloadManager方法说明**
+
+* void initDownloader(Context context)  // 初始化下载器
+* int getCorePoolSize()  // 获取下载器最大同时下载的任务数量
+* void setCorePoolSize(int corePoolSize) // 设置下载器最大同时下载的任务数量
+* int getMaxPoolSize()  // 获取下载器最多添加的任务数量
+* void setMaxPoolSize(int maxPoolSize) // 设置下载器最多添加的任务数量
+* long getKeepAliveTime() // 空闲任务的存活时间，单位毫秒
+* void setKeepAliveTime(int keepAliveTime)// 设置空闲任务的存活时间，单位毫秒
+* void addDownloader(T t) // 添加任务到任务队列 T只能是Downloader或者List<Downloader>类型
+* void remove(T t) // 移除任务队列中的某个任务或一群任务 ，T可以是任务的id, 也可以是任务id的List集合
+* void removeAll()// 移除任务队列中所有的任务
+* void pause(T t)// 暂停任务队列中的某个任务或一群任务，T可以是任务的id, 也可以是任务id的List集合
+* void pauseAll()// 暂停任务队列中所有的任务
+* void start(T t)// 开始任务队列中的某个任务或一群任务，T可以是任务的id, 也可以是任务id的List集合
+* void startAll()//开始任务队列中所有的任务
+* void subjectTask(String taskId,Observer observer) // 给某个任务绑定一个观察者
+* void removeTaskObserver(String taskId,Observer observer)// 移除某个任务的某个观察者
+* Downloader getDownloader(String taskId) // 获得某个任务的下载信息
+      
 ## 最后非常重要的
 不要忘记加网络以及读写权限
 
