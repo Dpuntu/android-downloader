@@ -1,7 +1,7 @@
 # android-downloader
 ## **一个简单的支持多任务下载、多界面管理、可断点下载的网络下载器**
 
-### 最新版 1.0.0
+### 最新版 v1.0.0
 
 **1.下载器简介**
 
@@ -21,7 +21,7 @@
 >     ｝
 > 
 > 主模块 build.gradle 中引入</br>
->       compile 'com.github.Dpuntu:android-downloader:1.0.0' 
+>       compile 'com.github.Dpuntu:android-downloader:v1.0.0' 
       
 **3.使用下载器**
 
