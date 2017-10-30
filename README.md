@@ -1,6 +1,8 @@
 # android-downloader
 ## **一个简单的支持多任务下载、多界面管理、可断点下载的网络下载器**
 
+## 最新版 1.0.1
+
 **1.下载器简介**
 
 这个下载器是我在写AppStore的时候自己搞的玩意，当时为了让多界面同步更新下载所做的东西，但是后来想想觉得应该可以单独拿出来封装，以后用到了就可以直接使用，不需要再做修改什么了，所以才有了这个项目，下载器是以okhttp为基础的，不懂okhttp也没关系，不过最好还是熟悉下，网上资源很多的
@@ -19,7 +21,7 @@
 >     ｝
 > 
 > 主模块 build.gradle 中引入</br>
->       compile 'com.github.Dpuntu:android-downloader:1.0.0' 
+>       compile 'com.github.Dpuntu:android-downloader:1.0.1' 
       
 **3.使用下载器**
 
@@ -28,7 +30,7 @@
 比如说，我现在要下载一个视频叫【韩国美女.mov】,下载的地址是【http://www.dpuntu.com/movie/hgmv.mov】
 
 *1.初始化下载器，一般在Application中初始化*
->         DownloadManager.getInstance().initDownloader(this);
+>         DownloadManager.initDownloader(this);
 
 *2.如果你的网络请求需要额外的配置，比如说请求头需要额外添加信息，你可以初始化OkHttpClient*
 >         OkHttpClient client = new OkHttpClient.Builder()
@@ -48,13 +50,13 @@
 >                             .build();
 
 *4.将第三步设置好的Downloader添加到任务列表中*
->         DownloadManager.getInstance().addDownloader(mDownloader);
+>         DownloadManager.addDownloader(mDownloader);
 
 *5.开始下载任务*
->         DownloadManager.getInstance().start(taskId); // 这个taskId就是设置Downloader时候的taskId
+>         DownloadManager.start(taskId); // 这个taskId就是设置Downloader时候的taskId
 
 *6.如果你关心任务下载情况的话[一般都关心吧...]，可设置监听器*
->         DownloadManager.getInstance().subjectTask(taskId,mStartObserver);// 这个taskId就是设置Downloader时候的taskId ,  mStartObserver是对>应taskId的某一个Observer，下文具体分析Observer
+>         DownloadManager.subjectTask(taskId,mStartObserver);// 这个taskId就是设置Downloader时候的taskId ,  mStartObserver是对>应taskId的某一个Observer，下文具体分析Observer
 
 从上文来看，建立任务到开始下载是一条链式结构，大概是4-6个步骤就完成了，而且DownloadManager、Downloader和Observer这三个都有使用到，DownloadManager、Downloader都好理解，大家应该都看得懂，下面讲解下Observer这个接口
 
