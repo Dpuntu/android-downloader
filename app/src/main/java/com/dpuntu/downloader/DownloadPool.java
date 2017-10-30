@@ -20,7 +20,7 @@ class DownloadPool extends ThreadPoolExecutor {
     private static int maxPoolSize = 5;
     private static long keepAliveTime = 500;
 
-    protected static void createPool() {
+    protected synchronized static void createPool() {
         BlockingQueue<Runnable> workers = new LinkedBlockingQueue<>();
         RejectedExecutionHandler handler = new ThreadPoolExecutor.AbortPolicy();
         mDownloadPool = new DownloadPool(
@@ -33,9 +33,13 @@ class DownloadPool extends ThreadPoolExecutor {
                 handler);
     }
 
-    protected static DownloadPool getDownloadPool() {
+    protected synchronized static DownloadPool getDownloadPool() {
         if (mDownloadPool == null) {
-            createPool();
+            synchronized (DownloadPool.class) {
+                if (mDownloadPool == null) {
+                    createPool();
+                }
+            }
         }
         return mDownloadPool;
     }
@@ -57,28 +61,27 @@ class DownloadPool extends ThreadPoolExecutor {
     @Override
     public void setCorePoolSize(int corePoolSize) {
         DownloadPool.corePoolSize = corePoolSize;
+        super.setCorePoolSize(corePoolSize);
     }
 
     protected int getMaxPoolSize() {
         return maxPoolSize;
     }
 
-    protected void setMaxPoolSize(int maxPoolSize) {
+    @Override
+    public void setMaximumPoolSize(int maxPoolSize) {
         DownloadPool.maxPoolSize = maxPoolSize;
-        if (mDownloadPool != null) {
-            mDownloadPool.setMaxPoolSize(DownloadPool.maxPoolSize);
-        }
+        super.setMaximumPoolSize(maxPoolSize);
     }
 
     protected long getKeepAliveTime() {
         return keepAliveTime;
     }
 
-    protected void setKeepAliveTime(long keepAliveTime) {
+    @Override
+    public void setKeepAliveTime(long keepAliveTime, TimeUnit unit) {
         DownloadPool.keepAliveTime = keepAliveTime;
-        if (mDownloadPool != null) {
-            mDownloadPool.setKeepAliveTime(DownloadPool.keepAliveTime);
-        }
+        super.setKeepAliveTime(keepAliveTime, unit);
     }
 
     protected DownloadPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {

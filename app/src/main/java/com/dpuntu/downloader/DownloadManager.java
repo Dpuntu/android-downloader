@@ -14,20 +14,16 @@ import static com.dpuntu.downloader.TaskQueue.queryDownloadBean;
 
 public class DownloadManager {
 
-    private static DownloadManager mDownloadManager = new DownloadManager();
-
-    private DownloadManager() {
-    }
-
-    public synchronized static DownloadManager getInstance() {
-        return mDownloadManager;
+    public DownloadManager() {
+        throw new AssertionError("No instance.");
     }
 
     /**
      * 初始化下载器
      */
-    public void initDownloader(Context context) {
+    public static void initDownloader(Context context) {
         DownloadContext.setContext(context);
+        PoolManager.createDownloadPool();
     }
 
     /**
@@ -93,7 +89,7 @@ public class DownloadManager {
      * @param task
      *         下载任务
      */
-    private void addDownloader(Downloader task) {
+    private static void addDownloader(Downloader task) {
         DownloadBean bean = TaskQueue.queryDownloadBean(task.getTaskId());
         if (bean != null) {
             if (bean.getDownloader().equals(task)) {
@@ -116,7 +112,7 @@ public class DownloadManager {
      * @param task
      *         下载任务
      */
-    private void addNewDownloader(Downloader task) {
+    private static void addNewDownloader(Downloader task) {
         DownloadBean downloadBean = new DownloadBean.Builder().downloader(task).build();
         downloadBean.setDownloadTask(new DownloadTask(downloadBean));
         downloadBean.setState(State.CREATE);
@@ -130,7 +126,7 @@ public class DownloadManager {
      *         下载任务
      */
     @SuppressWarnings("unchecked")
-    public <T> void addDownloader(T t) {
+    public static <T> void addDownloader(T t) {
         if (t == null) {
             return;
         }
@@ -159,7 +155,7 @@ public class DownloadManager {
      *         List<String>为任务Id的集合
      */
     @SuppressWarnings("unchecked")
-    public <T> void remove(T t) {
+    public static <T> void remove(T t) {
         if (t == null) {
             return;
         }
@@ -180,7 +176,7 @@ public class DownloadManager {
     /**
      * 移除所有下载任务
      */
-    public void removeAll() {
+    public static void removeAll() {
         List<DownloadBean> downloadBeanList = TaskQueue.queryDownloadBeans();
         for (DownloadBean downloadBean : downloadBeanList) {
             TaskManager.remove(downloadBean);
@@ -197,7 +193,7 @@ public class DownloadManager {
      *         List<String>为任务Id的集合
      */
     @SuppressWarnings("unchecked")
-    public <T> void pause(T t) {
+    public static <T> void pause(T t) {
         if (t == null) {
             return;
         }
@@ -218,7 +214,7 @@ public class DownloadManager {
     /**
      * 暂停所有在下载的任务
      */
-    public void pauseAll() {
+    public static void pauseAll() {
         List<DownloadBean> downloadBeanList = TaskQueue.queryDownloadBeans();
         for (DownloadBean downloadBean : downloadBeanList) {
             TaskManager.pause(downloadBean);
@@ -234,7 +230,7 @@ public class DownloadManager {
      *         List<String>为任务Id的集合
      */
     @SuppressWarnings("unchecked")
-    public <T> void start(T t) {
+    public static <T> void start(T t) {
         if (t == null) {
             return;
         }
@@ -255,7 +251,7 @@ public class DownloadManager {
     /**
      * 开始所有任务
      */
-    public void startAll() {
+    public static void startAll() {
         List<DownloadBean> downloadBeanList = TaskQueue.queryDownloadBeans();
         for (DownloadBean downloadBean : downloadBeanList) {
             TaskManager.start(downloadBean);
@@ -270,7 +266,7 @@ public class DownloadManager {
      * @param observer
      *         下载任务状态监听
      */
-    public void subjectTask(String taskId, Observer observer) {
+    public static void subjectTask(String taskId, Observer observer) {
         ObserverManager.getInstance().registerObserver(taskId, observer);
     }
 
@@ -282,7 +278,7 @@ public class DownloadManager {
      * @param observer
      *         下载任务状态监听 该对象必须与subjectTask方法中设置同一个 否则无法移除
      */
-    public void removeTaskObserver(String taskId, Observer observer) {
+    public static void removeTaskObserver(String taskId, Observer observer) {
         ObserverManager.getInstance().removeObserver(taskId, observer);
     }
 
@@ -294,7 +290,7 @@ public class DownloadManager {
      *
      * @return 任务信息
      */
-    public Downloader getDownloader(String taskId) {
+    public static Downloader getDownloader(String taskId) {
         DownloadBean bean = queryDownloadBean(taskId);
         if (bean != null) {
             return bean.getDownloader();

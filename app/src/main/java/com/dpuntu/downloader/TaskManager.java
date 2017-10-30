@@ -25,7 +25,7 @@ class TaskManager {
         if (downloadBean != null) {
             start(downloadBean);
         } else {
-            throw new NullPointerException("you add " + taskId + " to TaskQueue ?");
+            Logger.e("you add " + taskId + " to TaskQueue ?");
         }
     }
 
@@ -67,7 +67,7 @@ class TaskManager {
         if (downloadBean != null) {
             remove(downloadBean);
         } else {
-            throw new NullPointerException("you add " + taskId + " to TaskQueue ?");
+            Logger.e("you add " + taskId + " to TaskQueue ?");
         }
         TaskQueue.removeTask(taskId);
     }
@@ -111,7 +111,7 @@ class TaskManager {
         if (downloadBean != null) {
             pause(downloadBean);
         } else {
-            throw new NullPointerException("you add " + taskId + " to TaskQueue ?");
+            Logger.e("you add " + taskId + " to TaskQueue ?");
         }
     }
 

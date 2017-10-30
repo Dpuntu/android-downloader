@@ -1,5 +1,7 @@
 package com.dpuntu.downloader;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created on 2017/10/27.
  *
@@ -7,49 +9,34 @@ package com.dpuntu.downloader;
  */
 
 class PoolManager {
+    private static DownloadPool mDownloadPool;
 
-    private static DownloadPool mDownloadPool = DownloadPool.getDownloadPool();
+    protected static void createDownloadPool() {
+        mDownloadPool = DownloadPool.getDownloadPool();
+    }
 
     protected static int getCorePoolSize() {
-        if (mDownloadPool == null) {
-            mDownloadPool = DownloadPool.getDownloadPool();
-        }
         return mDownloadPool.getCorePoolSize();
     }
 
     protected static void setCorePoolSize(int corePoolSize) {
-        if (mDownloadPool == null) {
-            mDownloadPool = DownloadPool.getDownloadPool();
-        }
         mDownloadPool.setCorePoolSize(corePoolSize);
     }
 
     protected static int getMaxPoolSize() {
-        if (mDownloadPool == null) {
-            mDownloadPool = DownloadPool.getDownloadPool();
-        }
         return mDownloadPool.getMaxPoolSize();
     }
 
     protected static void setMaxPoolSize(int maxPoolSize) {
-        if (mDownloadPool == null) {
-            mDownloadPool = DownloadPool.getDownloadPool();
-        }
-        mDownloadPool.setMaxPoolSize(maxPoolSize);
+        mDownloadPool.setMaximumPoolSize(maxPoolSize);
     }
 
     protected static long getKeepAliveTime() {
-        if (mDownloadPool == null) {
-            mDownloadPool = DownloadPool.getDownloadPool();
-        }
         return mDownloadPool.getKeepAliveTime();
     }
 
     protected static void setKeepAliveTime(long keepAliveTime) {
-        if (mDownloadPool == null) {
-            mDownloadPool = DownloadPool.getDownloadPool();
-        }
-        mDownloadPool.setKeepAliveTime(keepAliveTime);
+        mDownloadPool.setKeepAliveTime(keepAliveTime, TimeUnit.MILLISECONDS);
     }
 
     protected static void start(DownloadTask downloadTask) {
