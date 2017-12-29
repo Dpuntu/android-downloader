@@ -18,7 +18,7 @@ class DownloadPool extends ThreadPoolExecutor {
     private static DownloadPool mDownloadPool;
     private static int corePoolSize = 1;
     private static int maxPoolSize = 5;
-    private static long keepAliveTime = 500;
+    private static long keepAliveTime = 3000;
 
     protected synchronized static void createPool() {
         BlockingQueue<Runnable> workers = new LinkedBlockingQueue<>();
