@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/Dpuntu/android-downloader.svg)](https://jitpack.io/#Dpuntu/android-downloader)
 # android-downloader
 ## **一个简单的支持多任务下载、多界面管理、可断点下载的网络下载器**
 
