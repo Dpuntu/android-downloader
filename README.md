@@ -1,8 +1,12 @@
-[![](https://jitpack.io/v/Dpuntu/android-downloader.svg)](https://jitpack.io/#Dpuntu/android-downloader)
 # android-downloader
 ## **一个简单的支持多任务下载、多界面管理、可断点下载的网络下载器**
-
 ### 最新版 v1.0.0
+
+[![](https://jitpack.io/v/Dpuntu/android-downloader.svg)](https://jitpack.io/#Dpuntu/android-downloader)
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![Language: Kotlin](https://img.shields.io/github/languages/top/Dpuntu/android-downloader.svg)](https://github.com/Dpuntu/android-downloader/search?l=java)
+[![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-orange.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 
 **1.下载器简介**
 
